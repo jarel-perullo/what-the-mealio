@@ -1,26 +1,5 @@
-var meals = [];
-var mealplan = [];
-
-(function() {
-	
-	// Initialize Firebase
-	const config = {
-		apiKey: "AIzaSyBxe4votlYFYRomf2y7MH7Uk3jzGD5sLtc",
-		authDomain: "bw4d-1b480.firebaseapp.com",
-		databaseURL: "https://bw4d-1b480.firebaseio.com",
-		storageBucket: "bw4d-1b480.appspot.com",
-		messagingSenderId: "477708780241"
-	};
-	firebase.initializeApp(config);
-
-	var foodRef = firebase.database().ref().child('food');
-
-	foodRef.on("child_added", snap => {
-		var name = snap.child('name').val();
-		// console.log(name);
-		meals.push(name);
-	});
-}());
+meals = [];
+mealplan = [];
 
 $('input[type=checkbox]').click((event) => {
 	var idx = event.target.value;
@@ -68,4 +47,12 @@ function rerollMeal(index) {
 
 	mealplan[index] = tmp[i];
 	$("#meal-day-" + index).text(mealplan[index]);
+}
+
+function logOut() {
+	firebase.auth().signOut().then(function() {
+	  alert('You doth signeth out...eth.');
+	}).catch(function(error) {
+	  console.log(error);
+	});
 }

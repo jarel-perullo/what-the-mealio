@@ -1,0 +1,38 @@
+#mealplan-table {
+	display: none;
+}
+
+.signin-header {
+	text-align: center;
+}
+
+.row {
+	margin-left: 0;
+	margin-right: 0;
+}
+
+.row-odd {
+	background-color: #dddddd;
+}
+
+.row-even {
+	background-color: #f0f0f0;
+}
+
+.box.takeout {
+	color: #888888;
+	font-style: italic;
+}
+
+.btn.btn-primary {
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+.checkbox {
+	margin: 0;
+}
+
+.row .box {
+	padding: 5px 5px;
+}
