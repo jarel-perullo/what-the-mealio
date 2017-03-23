@@ -51,7 +51,7 @@ function rerollMeal(index) {
 
 function logOut() {
 	firebase.auth().signOut().then(function() {
-	  alert('You doth signeth out...eth.');
+	  // Really nothing to do here
 	}).catch(function(error) {
 	  console.log(error);
 	});

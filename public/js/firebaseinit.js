@@ -16,9 +16,72 @@
 		console.log(user);
 
 		if (user) {
+			activeUser = user;
 			if (pathname == '/' || pathname == '/index.html') {
 				window.location = '/main/mealplan.html';
 			}
+			var userRef = firebase.database().ref('users/' + user.uid);
+			userRef.once('value', snap => {
+				if(!snap.exists()) {
+					userRef.set({
+						food: [ 
+							{
+								name: "Salmon",
+								type: "meal"
+							},
+							{
+								name: "Pasta Bolognese",
+								type: "meal"
+							},
+							{
+								name: "Tacos",
+								type: "meal"
+							},
+							{
+								name: "Chicken Stuff",
+								type: "meal"
+							},
+							{
+								name: "Meatloaf",
+								type: "meal"
+							},
+							{
+								name: "Hummus",
+								type: "meal"
+							},
+							{
+								name: "Kale Soup",
+								type: "meal"
+							},
+							{
+								name: "Pork Chops",
+								type: "meal"
+							},
+							{
+								name: "Daiya Pizza",
+								type: "meal"
+							},
+							{
+								name: "Chicken Nuggets",
+								type: "meal"
+							},
+							{
+								name: "Taco Mac 'n Cheese",
+								type: "meal"
+							}
+						]
+					});
+					// firebase.database().ref('/users').set(user.uid);
+				}
+			});
+
+			console.log(user.uid);
+			var foodRef = firebase.database().ref('users/' + user.uid + '/food');
+			foodRef.on("child_added", snap => {
+				var name = snap.child('name').val();
+				meals.push(name);
+			});
+
 		} else {
 			if (pathname != '/' && pathname != '/index.html') {
 				window.location = '/';
@@ -26,11 +89,5 @@
 		}
 	});
 	
-	var foodRef = firebase.database().ref().child('food');
-
-	foodRef.on("child_added", snap => {
-		var name = snap.child('name').val();
-		// console.log(name);
-		meals.push(name);
-	});
+	
 }());
