@@ -1,31 +1,52 @@
-activeUser = null;
-
 (function() {
 
-	// Initialize Firebase
-	const config = {
-		apiKey: "AIzaSyBxe4votlYFYRomf2y7MH7Uk3jzGD5sLtc",
-		authDomain: "bw4d-1b480.firebaseapp.com",
-		databaseURL: "https://bw4d-1b480.firebaseio.com",
-		storageBucket: "bw4d-1b480.appspot.com",
-		messagingSenderId: "477708780241"
-	};
-	firebase.initializeApp(config);
-
-	firebase.auth().onAuthStateChanged(user => {
-		var pathname = window.location.pathname;
-		console.log(pathname);
-		console.log(user);
-
-		if (user) {
-			activeUser = user;
+	var firebaseHelper = {
+		config: {
+				apiKey: "AIzaSyBxe4votlYFYRomf2y7MH7Uk3jzGD5sLtc",
+				authDomain: "bw4d-1b480.firebaseapp.com",
+				databaseURL: "https://bw4d-1b480.firebaseio.com",
+				storageBucket: "bw4d-1b480.appspot.com",
+				messagingSenderId: "477708780241"
+		},
+		init: function() {
+			this.initApp();
+			this.authUser();
+		},
+		initApp: function() {
+			firebase.initializeApp(this.config);
+		},
+		authUser: function() {
+			firebase.auth().onAuthStateChanged(user => {
+				console.log(user);
+				if (user) {
+					this.initUser(user);
+				} else {
+					this.forceLogin();
+				}
+			});
+		},
+		initUser: function(user) {
+			var pathname = window.location.pathname;
 			if (pathname == '/' || pathname == '/index.html') {
 				window.location = '/main/mealplan.html';
 			}
 			var userRef = firebase.database().ref('users/' + user.uid);
 			userRef.once('value', snap => {
 				if(!snap.exists()) {
-					userRef.set({
+					this.fillDatabase(user, userRef);
+				};
+			});
+			this.cacheMeals(user);
+		},
+		cacheMeals: function(user) {
+			var foodRef = firebase.database().ref('users/' + user.uid + '/food');
+				foodRef.on("child_added", snap => {
+					var name = snap.child('name').val();
+					meals.push(name);
+				});
+		},
+		fillDatabase: function(user, userRef) {
+			userRef.set({
 						food: [ 
 							{
 								name: "Salmon",
@@ -73,23 +94,17 @@ activeUser = null;
 							}
 						]
 					});
-					// firebase.database().ref('/users').set(user.uid);
-				}
-			});
-
-			console.log(user.uid);
-			var foodRef = firebase.database().ref('users/' + user.uid + '/food');
-			foodRef.on("child_added", snap => {
-				var name = snap.child('name').val();
-				meals.push(name);
-			});
-
-		} else {
+					firebase.database().ref('/users').set(user.uid);
+		},
+		forceLogin: function() {
+			var pathname = window.location.pathname;
 			if (pathname != '/' && pathname != '/index.html') {
 				window.location = '/';
 			}
 		}
-	});
+
+	};
+
+	firebaseHelper.init();
 	
-	
-}());
+})();

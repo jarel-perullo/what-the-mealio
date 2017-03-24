@@ -18,6 +18,13 @@
 
 	<script src="https://www.gstatic.com/firebasejs/3.7.3/firebase.js"></script>
 
+	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+	<!-- Note: Only one of these can be active at a time -->
+	<!-- <script src="./js/admin.js"></script> -->
+	<script src="../js/app.js"></script>
+
 	<script src="/js/firebaseinit.js"></script>
 
 </head>
@@ -58,24 +65,13 @@
 	</div>
 		
 
-	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	
 	<!-- Include all compiled plugins (below), or include individual files as needed -->
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.matchHeight/0.7.0/jquery.matchHeight-min.js"></script>
 
-	<!-- Note: Only one of these can be active at a time -->
-	<!-- <script src="./js/admin.js"></script> -->
-	<script src="../js/app.js"></script>
-
-	<script>
-	console.log(activeUser);
-	if (activeUser) {
-		var thing = firebase.database().ref('users/' + activeUser.uid + '/food');
-		console.log('your butt');
-	}
-	</script>
+	
 
 
 

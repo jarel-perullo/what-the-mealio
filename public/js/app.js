@@ -1,6 +1,5 @@
 meals = [];
 mealplan = [];
-activeUser = null;
 
 $('input[type=checkbox]').click((event) => {
 	var idx = event.target.value;
