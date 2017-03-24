@@ -5,7 +5,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-	<title>Shut Up and Plan My Meals! - Login</title>
+	<title>What the Mealio - Login</title>
 
 	<!-- Bootstrap -->
 	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
@@ -21,9 +21,16 @@
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.6/handlebars.min.js"></script>
 
+	<link rel="shortcut icon" href="/img/favicon.png" />
+
 	<script src="https://www.gstatic.com/firebasejs/3.7.3/firebase.js"></script>
 
 	<script src="/js/firebaseinit.js"></script>
+
+	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<!-- Include all compiled plugins (below), or include individual files as needed -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 	
 </head>
@@ -31,45 +38,43 @@
 
 
 	<div class="container">
+		<h1 class="main-header">What the Mealio</h1>
+		<br />
 		<h3 class="signin-header">Sign in, and know me better, man!</h3>
 
 		<div id="firebaseui-auth-container"></div>
 
 		<!-- Firebase Auth Stuff -->
 		<script src="https://cdn.firebase.com/libs/firebaseui/1.0.0/firebaseui.js"></script>
-			<link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/1.0.0/firebaseui.css" />
-			<script type="text/javascript">
-		      // FirebaseUI config.
-		      var uiConfig = {
-		      	signInSuccessUrl: 'main/mealplan.html',
-		      	signInOptions: [
-		          // Leave the lines as is for the providers you want to offer your users.
-		          firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-		          // firebase.auth.FacebookAuthProvider.PROVIDER_ID,
-		          // firebase.auth.TwitterAuthProvider.PROVIDER_ID,
-		          // firebase.auth.GithubAuthProvider.PROVIDER_ID,
-		          firebase.auth.EmailAuthProvider.PROVIDER_ID
-		          ],
-		        // Terms of service url.
-		        tosUrl: '<your-tos-url>'
-		    };
+		<link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/1.0.0/firebaseui.css" />
+		<script type="text/javascript">
+	      // FirebaseUI config.
+	      var uiConfig = {
+	      	signInSuccessUrl: 'main/mealplan.html',
+	      	signInOptions: [
+	          // Leave the lines as is for the providers you want to offer your users.
+	          firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+	          // firebase.auth.FacebookAuthProvider.PROVIDER_ID,
+	          // firebase.auth.TwitterAuthProvider.PROVIDER_ID,
+	          // firebase.auth.GithubAuthProvider.PROVIDER_ID,
+	          firebase.auth.EmailAuthProvider.PROVIDER_ID
+	          ],
+	        // Terms of service url.
+	        tosUrl: '<your-tos-url>'
+	    };
 
-	      // Initialize the FirebaseUI Widget using Firebase.
-	      var ui = new firebaseui.auth.AuthUI(firebase.auth());
-	      // The start method will wait until the DOM is loaded.
-	      ui.start('#firebaseui-auth-container', uiConfig);
+      // Initialize the FirebaseUI Widget using Firebase.
+      var ui = new firebaseui.auth.AuthUI(firebase.auth());
+      // The start method will wait until the DOM is loaded.
+      ui.start('#firebaseui-auth-container', uiConfig);
 	  </script>
-
 
 </div>
 
 
 
 
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.matchHeight/0.7.0/jquery.matchHeight-min.js"></script>
 

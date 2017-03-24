@@ -1,3 +1,5 @@
+activeUser = null;
+
 (function() {
 
 	// Initialize Firebase

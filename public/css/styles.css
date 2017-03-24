@@ -2,8 +2,16 @@
 	display: none;
 }
 
+.main-header {
+	text-align: center;
+}
+
 .signin-header {
 	text-align: center;
+}
+
+.logo {
+	width: 110px;
 }
 
 .row {
