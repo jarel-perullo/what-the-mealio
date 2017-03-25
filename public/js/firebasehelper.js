@@ -1,6 +1,7 @@
-(function() {
+var firebaseHelper = (function() {
 
-	var firebaseHelper = {
+	var theThing = {
+		meals: [],
 		config: {
 				apiKey: "AIzaSyBxe4votlYFYRomf2y7MH7Uk3jzGD5sLtc",
 				authDomain: "bw4d-1b480.firebaseapp.com",
@@ -10,22 +11,22 @@
 		},
 		init: function() {
 			this.initApp();
-			this.authUser();
+			this.initUser();
 		},
 		initApp: function() {
 			firebase.initializeApp(this.config);
 		},
-		authUser: function() {
+		initUser: function() {
 			firebase.auth().onAuthStateChanged(user => {
-				console.log(user);
+				// console.log(user);
 				if (user) {
-					this.initUser(user);
+					this.authUser(user);
 				} else {
 					this.forceLogin();
 				}
 			});
 		},
-		initUser: function(user) {
+		authUser: function(user) {
 			var pathname = window.location.pathname;
 			if (pathname == '/' || pathname == '/index.html') {
 				window.location = '/main/mealplan.html';
@@ -41,8 +42,8 @@
 		cacheMeals: function(user) {
 			var foodRef = firebase.database().ref('users/' + user.uid + '/food');
 				foodRef.on("child_added", snap => {
-					var name = snap.child('name').val();
-					meals.push(name);
+					console.log();
+					this.meals.push(snap);
 				});
 		},
 		fillDatabase: function(user, userRef) {
@@ -101,10 +102,22 @@
 			if (pathname != '/' && pathname != '/index.html') {
 				window.location = '/';
 			}
+		},
+		logOut: function() {
+			firebase.auth().signOut().then(function() {
+				// Really nothing to do here
+			}).catch(function(error) {
+				console.log(error);
+			});
 		}
 
 	};
 
-	firebaseHelper.init();
+	theThing.init();
 	
+	return {
+		meals: theThing.meals,
+		logOut: theThing.logOut
+	};
+
 })();
