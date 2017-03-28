@@ -2,6 +2,18 @@
 	display: none;
 }
 
+.meal-edit {
+	margin-right: 5px;
+	background-color: rgba(0, 0, 0, 0);
+	border: 0;
+}
+
+.meal-edit:focus {
+	color: #000000;
+	background-color: #ffffff;
+	border: 0;
+}
+
 .main-header {
 	text-align: center;
 }
@@ -27,9 +39,20 @@
 	background-color: #f0f0f0;
 }
 
+.row:hover {
+	color: #ffffff;
+	background: #286090;
+}
+
 .box.takeout {
 	color: #888888;
 	font-style: italic;
+}
+
+button.btn-danger.small-btn {
+	font-size: 10px;
+	padding: 0px 3px;
+	margin: 1px;
 }
 
 .btn.btn-primary {
@@ -43,4 +66,8 @@
 
 .row .box {
 	padding: 5px 5px;
+}
+
+.add-meal {
+	margin-top: 20px;
 }

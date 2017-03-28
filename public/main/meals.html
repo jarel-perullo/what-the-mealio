@@ -54,9 +54,13 @@
 
 	</div>
 
-	<div class="container" id="meals-list">
-		<h1>Under Construction</h1>
-		<h3>What can I say, you caught us with our pants down.  Come back later.</h3>
+	<div class="container">
+		<h3>Meals</h3>
+		<div id="meals-list">
+
+		</div>
+		<h3>Add a Meal</h3>
+		<input id="new-meal" type="text"><button onclick="mealio.addMeal()" class="btn-success small-btn">+</button>
 	</div>
 		
 
@@ -74,9 +78,9 @@
 
 	<script>
 		$('.box').matchHeight();
-		$(document).ready(() => {
-			mealio.populateMealsList();
-		});
+		// $(document).ready(() => {
+		// 	mealio.populateMealsList();
+		// });
 	</script>
 </body>
 </html>

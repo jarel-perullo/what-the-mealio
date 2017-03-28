@@ -2,6 +2,8 @@ var mealio = (function() {
 
 	// Init vars
 	var dbUser = null;
+	var userRef = null;
+	var foodRef = null;
 	var mealRefs = [];
 	var mealplan = [];
 	var config = {
@@ -14,6 +16,7 @@ var mealio = (function() {
 
 	// Cache DOM
 	var $mealPlanTable = $('#mealplan-table');
+	var $mealsList = $('#meals-list');
 	var $checkbox = $('input[type=checkbox]');
 	var $box = $box = $('.box');
 	var $mealDays = [];
@@ -42,7 +45,7 @@ var mealio = (function() {
 		if (pathname == '/' || pathname == '/index.html') {
 			window.location = '/main/mealplan.html';
 		}
-		var userRef = firebase.database().ref('users/' + user.uid);
+		userRef = firebase.database().ref('users/' + user.uid);
 		userRef.once('value', snap => {
 			if(!snap.exists()) {
 				fillDatabase(user, userRef);
@@ -120,14 +123,61 @@ var mealio = (function() {
 
 	// *** Main App Functions *** //
 	function cacheMeals(user) {
-		var foodRef = firebase.database()
-				.ref('users/' + user.uid + '/food')
-				.orderByChild('name');
-		foodRef.on("child_added", snap => {
+		foodRef = firebase.database()
+				.ref('users/' + user.uid + '/food');
+		var tmpRef = foodRef.orderByChild('name');
+		tmpRef.on("child_added", snap => {
 			mealRefs.push(snap);
+			if ($mealsList) {
+				var key = snap.getKey();
+				var mealName = snap.val().name;
+				console.log(key);
+				var html = 
+					'<div class="row"><div class="col-xs-6 highlightable"> \
+					<input type="text" class="meal-edit" \
+					onchange="mealio.editMeal(\'' + key + '\', this.value)" \
+					value="' + mealName + '"> \
+					<button type="button" class="btn btn-danger small-btn" \
+					onclick="mealio.deleteMeal(\'' + key + '\', \'' + mealName + '\')">X \
+					</button></div></div>';
+				$mealsList.append(html);
+			}
 		});
 	}
+
+	function addMeal() {
+		var $newMeal = $('#new-meal').val();
+		if ($newMeal) {
+			var theMeal = {
+				name: $newMeal,
+				type: 'meal'
+			}
+			foodRef.push().set(theMeal);
+			location.reload();
+		} else {
+			alert('New meal can\'t be blank, yo.');
+		}
+	}
 	
+	function editMeal(snapId, newVal) {
+		console.log(snapId + ' :: ' + newVal);
+		var mealRef = userRef.child('food/' + snapId);
+		var tmp = {
+			name: newVal,
+			type: 'meal'
+		}
+		mealRef.set(tmp);
+		location.reload();
+	}
+
+	function deleteMeal(snapId, mealName) {
+		if (confirm('Are you sure you want to delete ' + mealName + '?')) {
+			var tmpRef = foodRef.child(snapId);
+			tmpRef.remove();
+			location.reload();
+		}
+	}
+
 	function shuffleArray(array) {
 		var tmpArray = array.slice();
 		for (var i = tmpArray.length - 1; i > 0; i--) {
@@ -176,9 +226,11 @@ var mealio = (function() {
 	});
 	
 	return {
-		// shuffleArray: theThing.shuffleArray,
 		generateMealPlan: generateMealPlan,
 		rerollMeal: rerollMeal,
+		addMeal: addMeal,
+		editMeal: editMeal,
+		deleteMeal: deleteMeal,
 		logOut: logOut
 	};
 
