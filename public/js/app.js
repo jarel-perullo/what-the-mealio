@@ -133,7 +133,7 @@ var mealio = (function() {
 				var mealName = snap.val().name;
 				console.log(key);
 				var html = 
-					'<div class="row"><div class="col-xs-6 highlightable"> \
+					'<div class="row"><div class="col-xs-8 highlightable"> \
 					<input type="text" class="meal-edit" \
 					onchange="mealio.editMeal(\'' + key + '\', this.value)" \
 					value="' + mealName + '"> \
